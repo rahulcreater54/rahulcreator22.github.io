@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rahul | Cybersecurity Portfolio</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #05070d;
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 40px;
+            position: fixed;
+            width: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: cyan;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+        }
+
+        .hero-text {
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            color: #aaa;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: cyan;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 15px cyan;
+        }
+
+        /* IMAGE */
+        .hero img {
+            width: 350px;
+            opacity: 0.9;
+        }
+
+        /* PROJECT SECTION */
+        .projects {
+            padding: 80px 60px;
+        }
+
+        .projects h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0,255,255,0.3);
+        }
+
+        /* FADE ANIMATION */
+        .fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s;
+        }
+
+        .fade.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div>Rahul</div>
+    <div>
+        <a href="#">Home</a>
+        <a href="#projects">Projects</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-text fade">
+        <h1>Your go-to cybersecurity developer</h1>
+        <p>Building secure, intelligent systems and futuristic UI solutions for real-world problems.</p>
+        <button class="btn">View Projects</button>
+    </div>
+
+    <img src="https://i.imgur.com/8Km9tLL.png" class="fade">
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+    <h2>Discover what I've created</h2>
+
+    <div class="card fade">
+        <h3>🚨 Smart Traffic System</h3>
+        <p>Secure emergency response system with authentication and automated signals.</p>
+    </div>
+
+    <div class="card fade">
+        <h3>🛡️ Phishing Detection Tool</h3>
+        <p>Detects malicious links using pattern recognition and security rules.</p>
+    </div>
+
+</section>
+
+<script>
+/* SCROLL ANIMATION */
+const faders = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+    faders.forEach(el => {
+        let top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 50) {
+            el.classList.add('show');
+        }
+    });
+});
+</script>
+
+</body>
+</html>
