@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rahul | Cyber Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: monospace;
+            background: black;
+            color: #00ff00;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            border-right: 1px solid #00ff00;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar p {
+            cursor: pointer;
+            margin: 15px 0;
+        }
+
+        .sidebar p:hover {
+            color: black;
+            background: #00ff00;
+            padding: 5px;
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* TERMINAL HEADER */
+        .terminal {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            margin-bottom: 20px;
+            height: 60px;
+        }
+
+        /* PROJECT BOX */
+        .box {
+            border-left: 3px solid #00ff00;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(0,255,0,0.05);
+        }
+
+        .box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px #00ff00;
+        }
+
+        /* FORM */
+        input, textarea {
+            width: 100%;
+            background: black;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            margin-top: 5px;
+            padding: 8px;
+        }
+
+        button {
+            margin-top: 10px;
+            background: black;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00ff00;
+            color: black;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 10px;
+            border: 1px solid #00ff00;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>⚡ SYSTEM</h2>
+    <p>Dashboard</p>
+    <p>Projects</p>
+    <p>Logs</p>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TERMINAL -->
+    <div class="terminal" id="terminal"></div>
+
+    <h2>🚨 Projects</h2>
+    <div id="projectList"></div>
+
+    <h2>➕ Add Project</h2>
+
+    <input id="title" placeholder="Project Title">
+    <textarea id="desc" placeholder="Description"></textarea>
+    <input id="img" placeholder="Image URL">
+
+    <button onclick="addProject()">Add</button>
+
+</div>
+
+<script>
+/* TERMINAL TYPING EFFECT */
+let text = "Accessing Secure System... Access Granted ✔";
+let i = 0;
+
+function typeEffect() {
+    if (i < text.length) {
+        document.getElementById("terminal").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 40);
+    }
+}
+typeEffect();
+
+/* PROJECT STORAGE */
+let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+function displayProjects() {
+    document.getElementById("projectList").innerHTML = "";
+
+    projects.forEach((p, index) => {
+        let box = document.createElement("div");
+        box.className = "box";
+
+        let content = "<h3>" + p.title + "</h3><p>" + p.desc + "</p>";
+
+        if (p.img) {
+            content += "<img src='" + p.img + "'>";
+        }
+
+        content += "<br><button onclick='deleteProject(" + index + ")'>Delete</button>";
+
+        box.innerHTML = content;
+
+        document.getElementById("projectList").appendChild(box);
+    });
+}
+
+function addProject() {
+    let title = document.getElementById("title").value;
+    let desc = document.getElementById("desc").value;
+    let img = document.getElementById("img").value;
+
+    if (!title || !desc) {
+        alert("Enter all fields");
+        return;
+    }
+
+    projects.push({ title, desc, img });
+    localStorage.setItem("projects", JSON.stringify(projects));
+
+    displayProjects();
+
+    document.getElementById("title").value = "";
+    document.getElementById("desc").value = "";
+    document.getElementById("img").value = "";
+}
+
+function deleteProject(index) {
+    projects.splice(index, 1);
+    localStorage.setItem("projects", JSON.stringify(projects));
+    displayProjects();
+}
+
+displayProjects();
+</script>
+
+</body>
+</html>
